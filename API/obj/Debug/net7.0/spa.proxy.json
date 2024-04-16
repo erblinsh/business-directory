@@ -1,0 +1,8 @@
+{
+"SpaProxyServer": {
+"ServerUrl": "",
+"LaunchCommand": "",
+"WorkingDirectory": "C:\\Users\\Admin-PC\\source\\repos\\erblinsh\\business-directory\\API",
+"MaxTimeoutInSeconds": "120"
+}
+}
