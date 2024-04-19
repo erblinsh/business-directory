@@ -14,6 +14,7 @@ namespace server.data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Business> Businesses { get; set; }
         public DbSet<LocalUser> LocalUsers { get; set; }
+        public DbSet<Review> Businesses { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -45,6 +46,23 @@ namespace server.data
                 entity.Property(e => e.Name).HasMaxLength(30); 
                 entity.Property(e => e.Password).HasMaxLength(30); 
                 entity.Property(e => e.Role).HasMaxLength(30);
+            });
+
+            modelBuilder.Entity<Review>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Comment)
+                      .HasMaxLength(500);
+                entity.HasOne(e => e.User)
+                      .WithMany()
+                      .HasForeignKey(e => e.UserId)
+                      .IsRequired()
+                      .OnDelete(DeleteBehavior.Restrict);
+                entity.HasOne(e => e.Business)
+                      .WithMany()
+                      .HasForeignKey(e => e.BusinessId)
+                      .IsRequired()
+                      .OnDelete(DeleteBehavior.Restrict);
             });
 
 
@@ -136,6 +154,26 @@ namespace server.data
                     Email = "info@example.com",
                     CategoryId = 2,
                 });
+
+
+            modelBuilder.Entity<Review>().HasData(
+               new Review
+               {
+                   Id = 1,
+                   Review = 5,
+                   Comment = "Very good bsiness!",
+                   UserId = 2,
+                   BusinessId = 2,
+               },
+                new Review
+                {
+                    Id = 2,
+                    Review = 3,
+                    Comment = "Average",
+                    UserId = 1,
+                    BusinessId = 4 ,
+                }
+            );
 
 
         }
