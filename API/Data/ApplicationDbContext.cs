@@ -13,6 +13,7 @@ namespace server.data
 
         public DbSet<Category> Categories { get; set; }
         public DbSet<Business> Businesses { get; set; }
+        public DbSet<LocalUser> LocalUsers { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -37,6 +38,15 @@ namespace server.data
                       .OnDelete(DeleteBehavior.Restrict);
             });
 
+            modelBuilder.Entity<LocalUser>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.UserName).HasMaxLength(30); 
+                entity.Property(e => e.Name).HasMaxLength(30); 
+                entity.Property(e => e.Password).HasMaxLength(30); 
+                entity.Property(e => e.Role).HasMaxLength(30);
+            });
+
 
 
 
@@ -55,6 +65,25 @@ namespace server.data
                     Name = "E-commerce Business",
                     Description = "Fusce 11 tincidunt maximus leo, sed scelerisque massa auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.",
                 }
+           );
+
+            modelBuilder.Entity<LocalUser>().HasData(
+               new LocalUser
+               {
+                   Id = 1,
+                   UserName = "lis@gmail.com",
+                   Name = "Lis",
+                   Password = "admin123",
+                   Role = "admin",
+               },
+                new Category
+                {
+                    Id= 2,
+                    UserName = "lis2@gmail.com",
+                    Name = "Lis2",
+                    Password = "string",
+                    Role = "user",
+                },
            );
 
 
