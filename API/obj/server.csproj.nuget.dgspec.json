@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Admin-PC\\source\\repos\\erblinsh\\business-directory\\API\\server.csproj": {}
+    "C:\\Users\\ADMIN\\Desktop\\projekti\\API\\server.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Admin-PC\\source\\repos\\erblinsh\\business-directory\\API\\server.csproj": {
+    "C:\\Users\\ADMIN\\Desktop\\projekti\\API\\server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Admin-PC\\source\\repos\\erblinsh\\business-directory\\API\\server.csproj",
+        "projectUniqueName": "C:\\Users\\ADMIN\\Desktop\\projekti\\API\\server.csproj",
         "projectName": "server",
-        "projectPath": "C:\\Users\\Admin-PC\\source\\repos\\erblinsh\\business-directory\\API\\server.csproj",
-        "packagesPath": "C:\\Users\\Admin-PC\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Admin-PC\\source\\repos\\erblinsh\\business-directory\\API\\obj\\",
+        "projectPath": "C:\\Users\\ADMIN\\Desktop\\projekti\\API\\server.csproj",
+        "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ADMIN\\Desktop\\projekti\\API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Admin-PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -39,11 +39,6 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -130,24 +125,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[7.0.17, 7.0.17]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Host.win-x64",
-              "version": "[7.0.17, 7.0.17]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[7.0.17, 7.0.17]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[7.0.17, 7.0.17]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -156,7 +133,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
         }
       }
     }

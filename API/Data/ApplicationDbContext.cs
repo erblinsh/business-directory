@@ -14,7 +14,7 @@ namespace server.data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Business> Businesses { get; set; }
         public DbSet<LocalUser> LocalUsers { get; set; }
-        public DbSet<Review> Businesses { get; set; }
+        public DbSet<Review> Reviews { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -160,7 +160,7 @@ namespace server.data
                new Review
                {
                    Id = 1,
-                   Review = 5,
+                   Rating = 5,
                    Comment = "Very good bsiness!",
                    UserId = 2,
                    BusinessId = 2,
@@ -168,7 +168,7 @@ namespace server.data
                 new Review
                 {
                     Id = 2,
-                    Review = 3,
+                    Rating = 3,
                     Comment = "Average",
                     UserId = 1,
                     BusinessId = 4 ,
