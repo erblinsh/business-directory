@@ -2,7 +2,7 @@
 "SpaProxyServer": {
 "ServerUrl": "",
 "LaunchCommand": "",
-"WorkingDirectory": "C:\\Users\\ADMIN\\Desktop\\projekti\\API",
+"WorkingDirectory": "C:\\projekti\\business-directory\\API",
 "MaxTimeoutInSeconds": "120"
 }
 }
