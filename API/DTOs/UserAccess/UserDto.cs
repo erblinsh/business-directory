@@ -1,6 +1,6 @@
-﻿namespace server.Models
+﻿namespace server.DTOs.UserAccess
 {
-    public class LocalUser
+    public class UserDTO
     {
         public int Id { get; set; }
 

@@ -3,7 +3,7 @@ using server.data;
 using server.models;
 using server.Repository.IRepository;
 
-namespace server.Repository
+namespace server.Repository.Repositories
 {
     public class BusinessRepository : Repository<Business>, IBusinessRepository
     {

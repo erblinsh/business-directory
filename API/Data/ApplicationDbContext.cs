@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using server.models;
 using server.Models;
 
@@ -10,10 +11,13 @@ namespace server.data
         {
 
         }
+        //
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<LocalUser> LocalUsers { get; set; }
+        //
 
         public DbSet<Category> Categories { get; set; }
         public DbSet<Business> Businesses { get; set; }
-        public DbSet<LocalUser> LocalUsers { get; set; }
         public DbSet<Review> Reviews { get; set; }
 
 
@@ -85,24 +89,20 @@ namespace server.data
                 }
            );
 
-            modelBuilder.Entity<LocalUser>().HasData(
-               new LocalUser
-               {
-                   Id = 1,
-                   UserName = "lis@gmail.com",
-                   Name = "Lis",
-                   Password = "admin123",
-                   Role = "admin",
-               },
-                new Category
+            modelBuilder.Entity<IdentityRole>().HasData(
+                new IdentityRole
                 {
-                    Id= 2,
-                    UserName = "lis2@gmail.com",
-                    Name = "Lis2",
-                    Password = "string",
-                    Role = "user",
+                    Id = "1",
+                    Name = "Admin",
+                    NormalizedName = "ADMIN"
                 },
-           );
+                new IdentityRole
+                {
+                    Id = "2",
+                    Name = "User",
+                    NormalizedName = "USER"
+                }
+            );
 
 
             modelBuilder.Entity<Business>().HasData(

@@ -1,4 +1,4 @@
-﻿using server.DTO.UserAccess;
+﻿using server.DTOs.UserAccess;
 
 namespace server.Repository.IRepository
 {

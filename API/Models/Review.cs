@@ -1,4 +1,8 @@
-﻿namespace server.Models
+﻿using server.models;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace server.Models
 {
     public class Review
     {
@@ -17,10 +21,10 @@
         [Required]
         public int BusinessId { get; set; }
 
-        [ForeignKeyKey("UserId")]
-        public User User { get; set; }
+        [ForeignKey("UserId")]
+        public ApplicationUser User { get; set; }
 
-        [ForeignKeyKey("BusinessId")]
+        [ForeignKey("BusinessId")]
         public Business Business { get; set; }
     }
 }

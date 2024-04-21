@@ -1,6 +1,12 @@
-﻿namespace server.Repository.IRepository
+﻿using server.models;
+using server.Repository.IRepository;
+
+namespace server.Repository.IRepository
 {
-    public class IBusinessRepository
+    public interface IBusinessRepository : IRepository<Business>
     {
+
+        Task<Business> UpdateAsync(int id, Business business);
+
     }
 }

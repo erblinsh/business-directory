@@ -1,4 +1,4 @@
-﻿namespace business_directory.Models.Dto
+﻿namespace server.DTOs.UserAccess
 {
     public class LoginRequestDTO
     {

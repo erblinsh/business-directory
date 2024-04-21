@@ -2,9 +2,12 @@
   "ExpandedNodes": [
     "",
     "\\API",
-    "\\API\\DTOs",
-    "\\API\\DTOs\\User",
-    "\\API\\Models"
+    "\\API\\Data",
+    "\\API\\Mappers",
+    "\\API\\Models",
+    "\\API\\Repository",
+    "\\API\\Repository\\IRepository"
   ],
+  "SelectedNode": "\\API\\server.sln",
   "PreviewInSolutionExplorer": false
 }

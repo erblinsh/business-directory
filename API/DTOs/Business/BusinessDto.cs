@@ -1,4 +1,5 @@
 ﻿using server.DTOs.Category;
+using server.DTOs.Review;
 using server.Models;
 
 namespace server.DTOs.Business
@@ -16,6 +17,6 @@ namespace server.DTOs.Business
 
         public int CategoryId { get; set; }
         public CategoryDto Category { get; set; }
-        public List<Review> Reviews { get; set; }
+       public List<ReviewDto> Reviews { get; set; }
     }
 }

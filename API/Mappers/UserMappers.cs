@@ -1,14 +1,14 @@
-﻿using AutoMapper;
-using server.DTO.Category;
-using server.DTOs.Category;
-using server.Models;
+﻿using server.DTOs.UserAccess;
+using AutoMapper;
+using server.models;
 
-namespace server.models
-
-public class UserMappers : Profile
+namespace server.Mappers
 {
-    public UserMappers()
+    public class UserMappers : Profile
     {
-        CreateMap<ApplicationUser, UserDTO>().ReverseMap();
+        public UserMappers()
+        {
+            CreateMap<ApplicationUser, UserDTO>().ReverseMap();
+        }
     }
 }
