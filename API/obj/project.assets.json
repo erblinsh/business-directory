@@ -4633,19 +4633,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\lisma\\.nuget\\packages\\": {}
+    "C:\\Users\\NB\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\lisma\\source\\repos\\erblinsh\\business-directory\\API\\server.csproj",
+      "projectUniqueName": "C:\\projekti\\business-directory\\API\\server.csproj",
       "projectName": "server",
-      "projectPath": "C:\\Users\\lisma\\source\\repos\\erblinsh\\business-directory\\API\\server.csproj",
-      "packagesPath": "C:\\Users\\lisma\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\lisma\\source\\repos\\erblinsh\\business-directory\\API\\obj\\",
+      "projectPath": "C:\\projekti\\business-directory\\API\\server.csproj",
+      "packagesPath": "C:\\Users\\NB\\.nuget\\packages\\",
+      "outputPath": "C:\\projekti\\business-directory\\API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\lisma\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\NB\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -4772,7 +4772,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200\\RuntimeIdentifierGraph.json"
       }
     }
   }
