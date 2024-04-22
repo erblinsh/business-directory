@@ -7,63 +7,77 @@ using server.DTOs.UserAccess;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using server.Models;
+using System.Text;
+using System.Security.Claims;
+using server.data;
 
 namespace server.Repository.Repositories
 {
-    [Route("api/AuthUsers")]
-    [ApiController]
-    public class UsersController : Controller
+    public class UserRepository : IUserRepository
     {
-        private readonly IUserRepository _userRepo;
-        protected APIResponse _response;
+        private readonly ApplicationDbContext _db;
+        private readonly IMapper _mapper;
+        private readonly string _secretKey;
 
-        public UsersController(IUserRepository userRepo)
+        public UserRepository(ApplicationDbContext db, IMapper mapper, IConfiguration configuration)
         {
-            _userRepo = userRepo;
-            this._response = new();
-
+            _db = db;
+            _mapper = mapper;
+            _secretKey = configuration.GetValue<string>("ApiSettings:Secret");
         }
 
-        [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginRequestDTO model)
+        public bool IsUniqueUser(string username)
         {
-            var loginResponse = await _userRepo.Login(model);
-            if (loginResponse.User == null || string.IsNullOrEmpty(loginResponse.Token))
-            {
-                _response.StatusCode = HttpStatusCode.BadRequest;
-                _response.IsSuccess = false;
-                _response.ErrorMessages.Add("Username or password is incorrect");
-                return BadRequest(_response);
-            }
-            _response.StatusCode = HttpStatusCode.OK;
-            _response.IsSuccess = true;
-            _response.Result = loginResponse;
-            return Ok(_response);
+            var user = _db.LocalUsers.FirstOrDefault(x => x.UserName == username);
+            return user == null;
         }
 
-        [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] RegistrationRequestDTO model)
+        public async Task<LocalUser> Register(RegistrationRequestDTO registrationRequestDTO)
         {
-            bool ifUserNameUnique = _userRepo.IsUniqueUser(model.UserName);
-            if (!ifUserNameUnique)
-            {
-                _response.StatusCode = HttpStatusCode.BadRequest;
-                _response.IsSuccess = false;
-                _response.ErrorMessages.Add("Username already exists");
-                return BadRequest(_response);
-            }
+            LocalUser user = _mapper.Map<LocalUser>(registrationRequestDTO);
 
-            var user = await _userRepo.Register(model);
+            _db.LocalUsers.Add(user);
+            await _db.SaveChangesAsync();
+            user.Password = "";
+
+            return user;
+        }
+
+        public async Task<LoginResponseDTO> Login(LoginRequestDTO loginRequestDTO)
+        {
+            var user = _db.LocalUsers.FirstOrDefault(u => u.UserName.ToLower() == loginRequestDTO.UserName.ToLower()
+           && u.Password == loginRequestDTO.Password);
+
             if (user == null)
             {
-                _response.StatusCode = HttpStatusCode.BadRequest;
-                _response.IsSuccess = false;
-                _response.ErrorMessages.Add("Error while registering");
-                return BadRequest(_response);
+                return new LoginResponseDTO()
+                {
+                    Token = "",
+                    User = null
+                };
             }
-            _response.StatusCode = HttpStatusCode.OK;
-            _response.IsSuccess = true;
-            return Ok(_response);
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(_secretKey);
+
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[]
+                {
+                    new Claim(ClaimTypes.Name,user.Id.ToString()),
+                    new Claim(ClaimTypes.Role,user.Role)
+                }),
+                Expires = DateTime.UtcNow.AddDays(7),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            LoginResponseDTO loginResponseDTO = new LoginResponseDTO()
+            {
+                Token = tokenHandler.WriteToken(token),
+                User = user
+            };
+            return loginResponseDTO;
         }
     }
 }

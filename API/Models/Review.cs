@@ -22,7 +22,7 @@ namespace server.Models
         public int BusinessId { get; set; }
 
         [ForeignKey("UserId")]
-        public ApplicationUser User { get; set; }
+        public LocalUser User { get; set; }
 
         [ForeignKey("BusinessId")]
         public Business Business { get; set; }

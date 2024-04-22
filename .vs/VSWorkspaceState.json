@@ -3,11 +3,9 @@
     "",
     "\\API",
     "\\API\\Data",
-    "\\API\\Mappers",
     "\\API\\Models",
     "\\API\\Repository",
-    "\\API\\Repository\\IRepository"
+    "\\API\\Repository\\Repositories"
   ],
-  "SelectedNode": "\\API\\server.sln",
   "PreviewInSolutionExplorer": false
 }
