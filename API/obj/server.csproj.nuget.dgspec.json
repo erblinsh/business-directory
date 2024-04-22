@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\projekti\\business-directory\\API\\server.csproj": {}
+    "C:\\Users\\lisma\\source\\repos\\erblinsh\\business-directory\\API\\server.csproj": {}
   },
   "projects": {
-    "C:\\projekti\\business-directory\\API\\server.csproj": {
+    "C:\\Users\\lisma\\source\\repos\\erblinsh\\business-directory\\API\\server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\projekti\\business-directory\\API\\server.csproj",
+        "projectUniqueName": "C:\\Users\\lisma\\source\\repos\\erblinsh\\business-directory\\API\\server.csproj",
         "projectName": "server",
-        "projectPath": "C:\\projekti\\business-directory\\API\\server.csproj",
-        "packagesPath": "C:\\Users\\NB\\.nuget\\packages\\",
-        "outputPath": "C:\\projekti\\business-directory\\API\\obj\\",
+        "projectPath": "C:\\Users\\lisma\\source\\repos\\erblinsh\\business-directory\\API\\server.csproj",
+        "packagesPath": "C:\\Users\\lisma\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\lisma\\source\\repos\\erblinsh\\business-directory\\API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\NB\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\lisma\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -60,6 +60,10 @@
             "Azure.Storage.Blobs": {
               "target": "Package",
               "version": "[12.19.1, )"
+            },
+            "EntityFramework": {
+              "target": "Package",
+              "version": "[6.4.4, )"
             },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
@@ -141,7 +145,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }

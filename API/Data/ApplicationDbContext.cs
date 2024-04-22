@@ -7,9 +7,9 @@ namespace server.data
 {
     public class ApplicationDbContext : DbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+            : base(options)
         {
-
         }
         //
         public DbSet<LocalUser> ApplicationUsers { get; set; }
