@@ -2,12 +2,17 @@
 using server.DTOs.UserAccess;
 using server.Models;
 using server.Repository.IRepository;
+using System;
+using System.Collections.Generic;
 using System.Net;
+using System.Threading.Tasks;
 
 namespace server.Controllers
 {
-    [Route("api/AuthUsers")]
+    [Route("api/v{version:apiVersion}/AuthUsers")]
     [ApiController]
+    [ApiVersion("1.0")]
+
     public class UsersController : Controller
     {
         private readonly IUserRepository _userRepo;

@@ -6,6 +6,14 @@ using business_directory.Repository.IRepository;
 using Repository.Repositories;
 using Microsoft.OpenApi.Models;
 using server.Mappers;
+using Azure.Storage.Blobs;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using server.models;
+using server.Utility;
+using System.Text;
 
 // Add using directives for necessary namespaces
 
@@ -19,26 +27,63 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString);
 });
 
-// Add AutoMapper for object mapping
-builder.Services.AddAutoMapper(typeof(BusinessMappers));
-
-// Register repositories for dependency injection
+//BlobService
+builder.Services.AddSingleton(u => new BlobServiceClient(
+    builder.Configuration.GetConnectionString("StorageAccount")));
+builder.Services.AddSingleton<IBlobService, BlobService>();
+////////////
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+        .AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddResponseCaching();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IBusinessRepository, BusinessRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
 
-// Add endpoint API explorer for discovering API endpoints
-builder.Services.AddEndpointsApiExplorer();
+// Update repository interface
+builder.Services.AddAutoMapper(typeof(BusinessMappers));
+builder.Services.AddApiVersioning(options =>
+{
+    options.AssumeDefaultVersionWhenUnspecified = true;
+    options.DefaultApiVersion = new ApiVersion(1, 0);
+    options.ReportApiVersions = true;
+});
+builder.Services.AddVersionedApiExplorer(options =>
+{
+    options.GroupNameFormat = "'v'VVV";
+    options.SubstituteApiVersionInUrl = true;
+});
 
-// Retrieve the JWT secret key from configuration
 var key = builder.Configuration.GetValue<string>("ApiSettings:Secret");
 
-// Add controllers with NewtonsoftJson and XML data contract serialization
+builder.Services.AddAuthentication(x =>
+{
+    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+    .AddJwtBearer(x =>
+    {
+        x.RequireHttpsMetadata = false;
+        x.SaveToken = true;
+        x.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(key)),
+            ValidateIssuer = false,
+            ValidateAudience = false
+        };
+    });
+
 builder.Services.AddControllers(option =>
 {
-}).AddNewtonsoftJson().AddXmlDataContractSerializerFormatters();
+    //Caching logic
+    option.CacheProfiles.Add("Default30",
+        new CacheProfile()
+        {
+            Duration = 30
+        });
 
-// Add Swagger documentation with JWT security definition
+}).AddNewtonsoftJson().AddXmlDataContractSerializerFormatters();
+builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options => {
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
@@ -68,19 +113,59 @@ builder.Services.AddSwaggerGen(options => {
         }
     });
 
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+
+        Version = "v1.0",
+        Title = "Bussines-Dictionary V1",
+        Description = "API to manage Bussineses",
+        TermsOfService = new Uri("https://example.com/terms"),
+        Contact = new OpenApiContact
+        {
+            Name = "GjirafaLife",
+            Url = new Uri("https://gjirafa.biz")
+        },
+        License = new OpenApiLicense
+        {
+            Name = "Example License",
+            Url = new Uri("https://example.com/license")
+        }
+    });
+
+    options.SwaggerDoc("v2", new OpenApiInfo
+    {
+
+        Version = "v2.0",
+        Title = "Bussines-Dictionary V2",
+        Description = "API to manage Bussineses",
+        TermsOfService = new Uri("https://example.com/terms"),
+        Contact = new OpenApiContact
+        {
+            Name = "GjirafaLife",
+            Url = new Uri("https://gjirafa.biz")
+        },
+        License = new OpenApiLicense
+        {
+            Name = "Example License",
+            Url = new Uri("https://example.com/license")
+        }
+    });
+
 });
 
-// Build the application
+
 var app = builder.Build();
 
-// If the environment is development, use Swagger UI
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "Bussines-DictionaryV1");
+        options.SwaggerEndpoint("/swagger/v2/swagger.json", "Bussines-DictionaryV2");
+    });
 }
 
-// Use HTTPS redirection, authentication, authorization, map controllers, and run the application
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();

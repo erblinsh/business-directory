@@ -12,7 +12,7 @@ namespace server.data
         {
         }
         //
-        public DbSet<LocalUser> ApplicationUsers { get; set; }
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<LocalUser> LocalUsers { get; set; }
         //
 

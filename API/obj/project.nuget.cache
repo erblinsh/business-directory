@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "USbUbbrHnOF5ZZ6ne+D1rYma9+BiP0Ckho2rPbQPamcppygB/ZOYP/PfqmfTXojK0dSOzsie67U5XiAhu0+8fw==",
+  "dgSpecHash": "HJSwLf9goUu4avczA/xyqdPU4orS5Ay8gaGGZipyrMtqYaRWy5BGdBVj7QomcjEC5shaQBFntmG/Abg0njUuCw==",
   "success": true,
   "projectFilePath": "C:\\Users\\lisma\\source\\repos\\erblinsh\\business-directory\\API\\server.csproj",
   "expectedPackageFiles": [
@@ -17,6 +17,8 @@
     "C:\\Users\\lisma\\.nuget\\packages\\microsoft.aspnetcore.identity.entityframeworkcore\\7.0.0\\microsoft.aspnetcore.identity.entityframeworkcore.7.0.0.nupkg.sha512",
     "C:\\Users\\lisma\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\7.0.0\\microsoft.aspnetcore.jsonpatch.7.0.0.nupkg.sha512",
     "C:\\Users\\lisma\\.nuget\\packages\\microsoft.aspnetcore.mvc.newtonsoftjson\\7.0.0\\microsoft.aspnetcore.mvc.newtonsoftjson.7.0.0.nupkg.sha512",
+    "C:\\Users\\lisma\\.nuget\\packages\\microsoft.aspnetcore.mvc.versioning\\5.1.0\\microsoft.aspnetcore.mvc.versioning.5.1.0.nupkg.sha512",
+    "C:\\Users\\lisma\\.nuget\\packages\\microsoft.aspnetcore.mvc.versioning.apiexplorer\\5.1.0\\microsoft.aspnetcore.mvc.versioning.apiexplorer.5.1.0.nupkg.sha512",
     "C:\\Users\\lisma\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.14\\microsoft.aspnetcore.openapi.7.0.14.nupkg.sha512",
     "C:\\Users\\lisma\\.nuget\\packages\\microsoft.aspnetcore.spaproxy\\7.0.0\\microsoft.aspnetcore.spaproxy.7.0.0.nupkg.sha512",
     "C:\\Users\\lisma\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
