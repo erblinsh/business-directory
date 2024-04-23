@@ -1,59 +1,46 @@
 ﻿using AutoMapper;
+using business_directory.DTO.Category;
+using business_directory.Repository.IRepository;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using server.data;
-using server.DTOs.Business;
+using server.DTOs.Category;
 using server.Helpers;
-using server.models;
 using server.Models;
-using server.Repository.IRepository;
 using System.Net;
 
-namespace server.Controllers
+namespace Category_directory.Controllers
 {
-    [Route("api/business")]
+    [Route("api/Category")]
     [ApiController]
-    public class BusinessController : ControllerBase
+    public class CategoryAPIController : ControllerBase
     {
         protected APIResponse _response;
-        private readonly IBusinessRepository _businessRepository;
+        private readonly ICategoryRepository _categoryRepository;
         private readonly IMapper _mapper;
-        private readonly ApplicationDbContext _context;
+        private readonly ApplicationDbContext _db;
 
-        public BusinessController(IBusinessRepository businessRepository, IMapper mapper, ApplicationDbContext context)
+        public CategoryAPIController(ICategoryRepository dbCategory, IMapper mapper, ApplicationDbContext db)
         {
-            _businessRepository = businessRepository;
+            _categoryRepository = dbCategory;
             _mapper = mapper;
-            _context = context;
+            _db = db;
             this._response = new();
         }
 
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<APIResponse>> GetBusinesses([FromQuery] QueryObject queryObject)
+        public async Task<ActionResult<APIResponse>> GetCategories([FromQuery] QueryObject queryObject)
         {
             try
             {
-                IEnumerable<Business> businessList = await _businessRepository.GetAllAsync(
-                                                        include: q => q.Include(b => b.Category));
-
-                if (!string.IsNullOrWhiteSpace(queryObject.CategoryName))
-                {
-                    businessList = businessList.Where(b => b.Category.Name.ToLower()
-                                                .Contains(queryObject.CategoryName.ToLower()));
-                }
+                IEnumerable<Category> CategoryList = await _categoryRepository.GetAllAsync();
 
                 if (!string.IsNullOrWhiteSpace(queryObject.Name))
-                {
-                    businessList = businessList.Where(b => b.Name.ToLower()
+                    CategoryList = CategoryList.Where(b => b.Name.ToLower()
                                                 .Contains(queryObject.Name.ToLower()));
-                }
-
-                businessList = queryObject.IsDescending
-                                      ? businessList.OrderByDescending(b => b.Id)
-                                      : businessList.OrderBy(b => b.Id);
 
 
                 if (!string.IsNullOrEmpty(queryObject.SortBy))
@@ -61,26 +48,19 @@ namespace server.Controllers
                     switch (queryObject.SortBy.ToLower())
                     {
                         case "name":
-                            businessList = queryObject.IsDescending
-                                        ? businessList.OrderByDescending(b => b.Name)
-                                        : businessList.OrderBy(b => b.Name);
-                            break;
-
-                        case "email":
-                            businessList = queryObject.IsDescending
-                                        ? businessList.OrderByDescending(b => b.Email)
-                                        : businessList.OrderBy(b => b.Email);
+                            CategoryList = queryObject.IsDescending
+                                        ? CategoryList.OrderByDescending(b => b.Name)
+                                        : CategoryList.OrderBy(b => b.Name);
                             break;
                     }
                 }
 
-
                 // Pagination
                 int skipNumber = (queryObject.PageNumber - 1) * queryObject.PageSize;
-                businessList = businessList.Skip(skipNumber)
-                                            .Take(queryObject.PageSize);
+                CategoryList = CategoryList.Skip(skipNumber)
+                .Take(queryObject.PageSize);
 
-                _response.Result = _mapper.Map<List<BusinessDto>>(businessList);
+                _response.Result = _mapper.Map<List<CategoryDto>>(CategoryList);
                 _response.StatusCode = HttpStatusCode.OK;
 
                 return Ok(_response);
@@ -95,11 +75,12 @@ namespace server.Controllers
             }
         }
 
+
         [HttpGet("{id:int}")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<APIResponse>> GetBusiness([FromRoute] int id)
+        public async Task<ActionResult<APIResponse>> GetCategory([FromRoute] int id)
         {
             try
             {
@@ -109,18 +90,16 @@ namespace server.Controllers
                     return BadRequest(ModelState);
                 }
 
-                var business = await _businessRepository.GetAsync(u => u.Id == id,
-                                         include: q => q.Include(b => b.Reviews)
-                                                        .Include(b => b.Category));
 
+                var Category = await _categoryRepository.GetAsync(u => u.Id == id, include: q => q.Include(b => b.Businesses));
 
-                if (business == null)
+                if (Category == null)
                 {
-                    ModelState.AddModelError("", "Business not found!");
+                    ModelState.AddModelError("", "Category not found!");
                     return BadRequest(ModelState);
                 }
 
-                _response.Result = _mapper.Map<BusinessDto>(business);
+                _response.Result = _mapper.Map<CategoryWithBusinessesDto>(Category);
                 _response.StatusCode = HttpStatusCode.OK;
 
 
@@ -137,35 +116,28 @@ namespace server.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<APIResponse>> CreateBusiness([FromBody] CreateBusinessDto createDTO)
+        public async Task<ActionResult<APIResponse>> CreateCategory([FromBody] CreateCategoryDto createDTO)
         {
             try
             {
-                var categoryExists = await _context.Categories.AnyAsync(c => c.Id == createDTO.CategoryId);
 
-                if (!categoryExists)
+                if (await _categoryRepository.GetAsync(u => u.Name.ToLower() == createDTO.Name.ToLower()) != null)
                 {
-                    ModelState.AddModelError("CategoryNotFound", "The specified category does not exist.");
-                    return BadRequest(ModelState);
-                }
-
-                if (await _businessRepository.GetAsync(u => u.Name.ToLower() == createDTO.Name.ToLower()) != null)
-                {
-                    ModelState.AddModelError("CustomError", "Business already Exists!");
+                    ModelState.AddModelError("CustomError", "Category already Exists!");
                     return BadRequest(ModelState);
                 }
 
                 if (createDTO == null)
                     return BadRequest(createDTO);
 
-                Business business = _mapper.Map<Business>(createDTO);
+                Category category = _mapper.Map<Category>(createDTO);
 
 
-                await _businessRepository.CreateAsync(business);
-                _response.Result = _mapper.Map<BusinessDto>(business);
+                await _categoryRepository.CreateAsync(category);
+                _response.Result = _mapper.Map<CategoryDto>(category);
                 _response.StatusCode = HttpStatusCode.Created;
 
-                return CreatedAtAction(nameof(GetBusiness), new { id = business.Id }, _response);
+                return CreatedAtAction(nameof(GetCategory), new { id = category.Id }, _response);
             }
             catch (Exception ex)
             {
@@ -181,7 +153,7 @@ namespace server.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpDelete("{id:int}")]
-        public async Task<ActionResult<APIResponse>> DeleteBusiness([FromRoute] int id)
+        public async Task<ActionResult<APIResponse>> DeleteCategory([FromRoute] int id)
         {
             try
             {
@@ -191,12 +163,12 @@ namespace server.Controllers
                     return BadRequest(ModelState);
                 }
 
-                var business = await _businessRepository.GetAsync(u => u.Id == id);
+                var Category = await _categoryRepository.GetAsync(u => u.Id == id);
 
-                if (business == null)
+                if (Category == null)
                     return NotFound();
 
-                await _businessRepository.RemoveAsync(business);
+                await _categoryRepository.RemoveAsync(Category);
                 _response.StatusCode = HttpStatusCode.NoContent;
                 _response.IsSuccess = true;
 
@@ -216,16 +188,16 @@ namespace server.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<APIResponse>> UpdateBusiness([FromRoute] int id, [FromBody] UpdateBusinessDto updateDTO)
+        public async Task<ActionResult<APIResponse>> UpdateCategory([FromRoute] int id, [FromBody] UpdateCategoryDto updateDTO)
         {
             try
             {
                 if (updateDTO == null)
                     return BadRequest();
 
-                Business model = _mapper.Map<Business>(updateDTO);
+                Category model = _mapper.Map<Category>(updateDTO);
 
-                await _businessRepository.UpdateAsync(id, model);
+                await _categoryRepository.UpdateAsync(id, model);
                 _response.StatusCode = HttpStatusCode.NoContent;
                 _response.IsSuccess = true;
 
@@ -245,7 +217,7 @@ namespace server.Controllers
         [HttpPatch("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> UpdatePartialBusiness([FromRoute] int id, JsonPatchDocument<UpdateBusinessDto> patchDTO)
+        public async Task<IActionResult> UpdatePartialCategory([FromRoute] int id, JsonPatchDocument<UpdateCategoryDto> patchDTO)
         {
             try
             {
@@ -261,24 +233,24 @@ namespace server.Controllers
                     return BadRequest(ModelState);
                 }
 
-                var business = await _businessRepository.GetAsync(u => u.Id == id, tracked: false);
+                var Category = await _categoryRepository.GetAsync(u => u.Id == id, tracked: false);
 
-                if (business == null)
+                if (Category == null)
                     return NotFound();
 
-                var businessDTO = _mapper.Map<UpdateBusinessDto>(business);
+                var CategoryDTO = _mapper.Map<UpdateCategoryDto>(Category);
 
-                patchDTO.ApplyTo(businessDTO);
+                patchDTO.ApplyTo(CategoryDTO);
 
-                if (!TryValidateModel(businessDTO))
+                if (!TryValidateModel(CategoryDTO))
                     return BadRequest(ModelState);
 
-                _mapper.Map(businessDTO, business);
+                _mapper.Map(CategoryDTO, Category);
 
-                await _businessRepository.UpdateAsync(id, business);
-                var updatedBusinessDTO = _mapper.Map<BusinessDto>(business);
+                await _categoryRepository.UpdateAsync(id, Category);
+                var updatedCategoryDTO = _mapper.Map<CategoryDto>(Category);
 
-                return Ok(updatedBusinessDTO);
+                return Ok(updatedCategoryDTO);
             }
             catch (Exception ex)
             {
@@ -286,5 +258,7 @@ namespace server.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, errorMessage);
             }
         }
+
     }
 }
+

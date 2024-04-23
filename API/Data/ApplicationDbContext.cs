@@ -25,53 +25,6 @@ namespace server.data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Category>(entity =>
-            {
-                entity.HasKey(e => e.Id);
-                entity.Property(e => e.Name)
-                      .IsRequired()
-                      .HasMaxLength(255);
-            });
-
-            modelBuilder.Entity<Business>(entity =>
-            {
-                entity.HasKey(e => e.Id);
-                entity.HasOne(e => e.Category)
-                      .WithMany()
-                      .HasForeignKey(e => e.CategoryId)
-                      .IsRequired()
-                      .OnDelete(DeleteBehavior.Restrict);
-            });
-
-            modelBuilder.Entity<LocalUser>(entity =>
-            {
-                entity.HasKey(e => e.Id);
-                entity.Property(e => e.UserName).HasMaxLength(30); 
-                entity.Property(e => e.Name).HasMaxLength(30); 
-                entity.Property(e => e.Password).HasMaxLength(30); 
-                entity.Property(e => e.Role).HasMaxLength(30);
-            });
-
-            modelBuilder.Entity<Review>(entity =>
-            {
-                entity.HasKey(e => e.Id);
-                entity.Property(e => e.Comment)
-                      .HasMaxLength(500);
-                entity.HasOne(e => e.User)
-                      .WithMany()
-                      .HasForeignKey(e => e.UserId)
-                      .IsRequired()
-                      .OnDelete(DeleteBehavior.Restrict);
-                entity.HasOne(e => e.Business)
-                      .WithMany()
-                      .HasForeignKey(e => e.BusinessId)
-                      .IsRequired()
-                      .OnDelete(DeleteBehavior.Restrict);
-            });
-
-
-
-
             // Initial, manual data seeding
 
             modelBuilder.Entity<Category>().HasData(

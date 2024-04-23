@@ -1,6 +1,6 @@
 ﻿namespace server.Helpers
 {
-    public class BusinessQueryObject
+    public class QueryObject
     {
         public string Name { get; set; }
         public string CategoryName { get; set; }
