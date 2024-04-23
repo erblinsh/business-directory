@@ -2,7 +2,7 @@
 "SpaProxyServer": {
 "ServerUrl": "",
 "LaunchCommand": "",
-"WorkingDirectory": "C:\\Users\\lisma\\source\\repos\\erblinsh\\business-directory\\API",
+"WorkingDirectory": "C:\\Users\\ADMIN\\Desktop\\BD\\API",
 "MaxTimeoutInSeconds": "120"
 }
 }

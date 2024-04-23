@@ -16,14 +16,12 @@ namespace server.Models
         public string Comment { get; set; }
 
         [Required]
-        public int UserId { get; set; }
+        public string UserId { get; set; }
+        [ForeignKey("UserId")]
+        public LocalUser ApplicationUser { get; set; }
 
         [Required]
         public int BusinessId { get; set; }
-
-        [ForeignKey("UserId")]
-        public LocalUser User { get; set; }
-
         [ForeignKey("BusinessId")]
         public Business Business { get; set; }
     }

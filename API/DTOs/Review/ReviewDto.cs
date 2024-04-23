@@ -1,17 +1,14 @@
-﻿using server.DTOs.Business;
-using server.DTOs.UserAccess;
-using System.ComponentModel.DataAnnotations;
-
-namespace server.DTOs.Review
+﻿namespace server.DTOs.Review
 {
     public class ReviewDto
     {
-        public string Rating { get; set; }
+        public int Id;
+        public int Rating { get; set; }
         public string Comment { get; set; }
         public string UserId { get; set; }
-        public string BusinessId { get; set; }
+        public int BusinessId { get; set; }
 
-        public UserDTO User { get; set; }
-        public BusinessDto Business { get; set; }
+        //public UserDTO User { get; set; }
+        //public BusinessDto Business { get; set; }
     }
 }

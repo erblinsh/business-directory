@@ -115,7 +115,7 @@ namespace server.data
                    Id = 1,
                    Rating = 5,
                    Comment = "Very good bsiness!",
-                   UserId = 2,
+                   UserId = "2",
                    BusinessId = 2,
                },
                 new Review
@@ -123,7 +123,7 @@ namespace server.data
                     Id = 2,
                     Rating = 3,
                     Comment = "Average",
-                    UserId = 1,
+                    UserId = "1",
                     BusinessId = 4 ,
                 }
             );

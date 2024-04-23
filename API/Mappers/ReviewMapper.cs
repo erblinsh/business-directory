@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using business_directory.DTO.Category;
-using server.DTOs.Category;
 using server.DTOs.Review;
 using server.Models;
 
