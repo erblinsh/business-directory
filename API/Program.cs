@@ -120,8 +120,8 @@ builder.Services.AddSwaggerGen(options => {
     {
 
         Version = "v1.0",
-        Title = "Bussines-Dictionary V1",
-        Description = "API to manage Bussineses",
+        Title = "Business-Dictionary V1",
+        Description = "API to manage Businesses",
         TermsOfService = new Uri("https://example.com/terms"),
         Contact = new OpenApiContact
         {
@@ -139,8 +139,8 @@ builder.Services.AddSwaggerGen(options => {
     {
 
         Version = "v2.0",
-        Title = "Bussines-Dictionary V2",
-        Description = "API to manage Bussineses",
+        Title = "Business-Dictionary V2",
+        Description = "API to manage Businesses",
         TermsOfService = new Uri("https://example.com/terms"),
         Contact = new OpenApiContact
         {
@@ -164,8 +164,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(options =>
     {
-        options.SwaggerEndpoint("/swagger/v1/swagger.json", "Bussines-DictionaryV1");
-        options.SwaggerEndpoint("/swagger/v2/swagger.json", "Bussines-DictionaryV2");
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "Business-DictionaryV1");
+        options.SwaggerEndpoint("/swagger/v2/swagger.json", "Business-DictionaryV2");
     });
 }
 
