@@ -1,9 +1,8 @@
 using AutoMapper;
-using business_directory.DTO.Category;
 using server.DTOs.Category;
 using server.Models;
 
-namespace business_directory.Mappers
+namespace server.Mappers
 {
     public class CategoryMappers : Profile
     {

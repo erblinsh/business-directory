@@ -18,7 +18,7 @@ namespace server.Models
         [Required]
         public string UserId { get; set; }
         [ForeignKey("UserId")]
-        public LocalUser ApplicationUser { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
 
         [Required]
         public int BusinessId { get; set; }

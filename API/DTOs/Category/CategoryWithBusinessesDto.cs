@@ -1,6 +1,6 @@
 using server.DTOs.Business;
 
-namespace business_directory.DTO.Category
+namespace server.DTOs.Category
 {
     public class CategoryWithBusinessesDto
     {

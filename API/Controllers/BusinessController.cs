@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -39,7 +40,7 @@ namespace server.Controllers
                 IEnumerable<Business> businessList = await _businessRepository.GetAllAsync(
                                                         include: q => q.Include(b => b.Category));
 
-                if (!string.IsNullOrWhiteSpace(queryObject.CategoryName))
+               if (!string.IsNullOrWhiteSpace(queryObject.CategoryName))
                 {
                     businessList = businessList.Where(b => b.Category.Name.ToLower()
                                                 .Contains(queryObject.CategoryName.ToLower()));
@@ -54,7 +55,6 @@ namespace server.Controllers
                 businessList = queryObject.IsDescending
                                       ? businessList.OrderByDescending(b => b.Id)
                                       : businessList.OrderBy(b => b.Id);
-
 
                 if (!string.IsNullOrEmpty(queryObject.SortBy))
                 {
@@ -79,7 +79,6 @@ namespace server.Controllers
                 int skipNumber = (queryObject.PageNumber - 1) * queryObject.PageSize;
                 businessList = businessList.Skip(skipNumber)
                                             .Take(queryObject.PageSize);
-
                 _response.Result = _mapper.Map<List<BusinessDto>>(businessList);
                 _response.StatusCode = HttpStatusCode.OK;
 
@@ -137,6 +136,7 @@ namespace server.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<APIResponse>> CreateBusiness([FromBody] CreateBusinessDto createDTO)
         {
             try
@@ -181,6 +181,7 @@ namespace server.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpDelete("{id:int}")]
+        [Authorize]
         public async Task<ActionResult<APIResponse>> DeleteBusiness([FromRoute] int id)
         {
             try
@@ -216,6 +217,7 @@ namespace server.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Authorize]
         public async Task<ActionResult<APIResponse>> UpdateBusiness([FromRoute] int id, [FromBody] UpdateBusinessDto updateDTO)
         {
             try

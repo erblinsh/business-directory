@@ -2,7 +2,7 @@
 "SpaProxyServer": {
 "ServerUrl": "",
 "LaunchCommand": "",
-"WorkingDirectory": "C:\\Users\\ADMIN\\Desktop\\BD\\API",
+"WorkingDirectory": "C:\\Users\\NB\\Desktop\\main-kryesore-test\\business-directory\\API",
 "MaxTimeoutInSeconds": "120"
 }
 }

@@ -1,7 +1,7 @@
 ﻿using server.Models;
 using server.Repository.IRepository;
 
-namespace business_directory.Repository.IRepository
+namespace server.Repository.IRepository // 2
 {
     public interface ICategoryRepository : IRepository<Category>
     {

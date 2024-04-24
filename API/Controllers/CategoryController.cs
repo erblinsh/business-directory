@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using business_directory.DTO.Category;
-using business_directory.Repository.IRepository;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,16 +6,17 @@ using server.data;
 using server.DTOs.Category;
 using server.Helpers;
 using server.Models;
+using server.Repository.IRepository;
 using System.Net;
 
-namespace Category_directory.Controllers
+namespace server.Controllers // 1
 {
     [Route("api/Category")]
     [ApiController]
     public class CategoryAPIController : ControllerBase
     {
         protected APIResponse _response;
-        private readonly ICategoryRepository _categoryRepository;
+        private readonly ICategoryRepository  _categoryRepository;
         private readonly IMapper _mapper;
         private readonly ApplicationDbContext _db;
 

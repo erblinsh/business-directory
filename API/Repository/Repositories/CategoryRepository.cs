@@ -1,7 +1,7 @@
-﻿using business_directory.Repository.IRepository;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using server.data;
 using server.Models;
+using server.Repository.IRepository;
 using server.Repository.Repositories;
 
 namespace Repository.Repositories

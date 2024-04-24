@@ -2,7 +2,6 @@ using server.data;
 using Microsoft.EntityFrameworkCore;
 using server.Repository.IRepository;
 using server.Repository.Repositories;
-using business_directory.Repository.IRepository;
 using Repository.Repositories;
 using Microsoft.OpenApi.Models;
 using server.Mappers;
@@ -36,6 +35,8 @@ builder.Services.AddSingleton<IBlobService, BlobService>();
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
         .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddResponseCaching();
+
+
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IBusinessRepository, BusinessRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
