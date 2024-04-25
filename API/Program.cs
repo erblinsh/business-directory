@@ -157,7 +157,20 @@ builder.Services.AddSwaggerGen(options => {
 });
 
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAnyOrigin", builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
+
 var app = builder.Build();
+
+app.UseCors("AllowAnyOrigin");
+;
 
 if (app.Environment.IsDevelopment())
 {

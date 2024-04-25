@@ -36,7 +36,7 @@ namespace server.data
                 new Category
                 {
                     Id = 2,
-                    Name = "E-commerce Business",
+                    Name = "E-commerce",
                     Description = "Fusce 11 tincidunt maximus leo, sed scelerisque massa auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.",
                 }
            );

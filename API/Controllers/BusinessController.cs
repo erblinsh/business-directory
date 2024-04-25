@@ -40,7 +40,9 @@ namespace server.Controllers
                 IEnumerable<Business> businessList = await _businessRepository.GetAllAsync(
                                                         include: q => q.Include(b => b.Category));
 
-               if (!string.IsNullOrWhiteSpace(queryObject.CategoryName))
+                _response.Length = businessList.Count();
+
+                if (!string.IsNullOrWhiteSpace(queryObject.CategoryName))
                 {
                     businessList = businessList.Where(b => b.Category.Name.ToLower()
                                                 .Contains(queryObject.CategoryName.ToLower()));
@@ -79,6 +81,7 @@ namespace server.Controllers
                 int skipNumber = (queryObject.PageNumber - 1) * queryObject.PageSize;
                 businessList = businessList.Skip(skipNumber)
                                             .Take(queryObject.PageSize);
+
                 _response.Result = _mapper.Map<List<BusinessDto>>(businessList);
                 _response.StatusCode = HttpStatusCode.OK;
 

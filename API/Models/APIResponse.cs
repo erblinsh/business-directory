@@ -11,6 +11,7 @@ namespace server.Models
         public HttpStatusCode StatusCode { get; set; }
         public bool IsSuccess { get; set; } = true;
         public List<string> ErrorMessages { get; set; }
+        public int? Length { get; set; }
         public object Result { get; set; }
     }
 }
