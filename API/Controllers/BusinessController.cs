@@ -40,7 +40,6 @@ namespace server.Controllers
                 IEnumerable<Business> businessList = await _businessRepository.GetAllAsync(
                                                         include: q => q.Include(b => b.Category));
 
-                _response.Length = businessList.Count();
 
                 if (!string.IsNullOrWhiteSpace(queryObject.CategoryName))
                 {
@@ -53,6 +52,9 @@ namespace server.Controllers
                     businessList = businessList.Where(b => b.Name.ToLower()
                                                 .Contains(queryObject.Name.ToLower()));
                 }
+
+
+                _response.Length = businessList.Count();
 
                 businessList = queryObject.IsDescending
                                       ? businessList.OrderByDescending(b => b.Id)
