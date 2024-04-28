@@ -5,6 +5,7 @@ import { Home } from './pages/Home/Home';
 import { Business } from './pages/Business/Business';
 import { BusinessDetails } from './pages/BusinessDetails/BusinessDetails';
 import Dashboard from './admin/Dashboard';
+import { PageNotFound } from './pages/PageNotFound/PageNotFound';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
             <Route path="/business" element={<Business />}/>
             <Route path='/business/:id' element={<BusinessDetails />} />
             <Route path='/admin' element={<Dashboard />} />
+            <Route path='*' element={<PageNotFound />} />
           </Routes>
         </Router>
     </div>

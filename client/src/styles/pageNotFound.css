@@ -1,0 +1,33 @@
+:root {
+    --page-not-found-color-h1: #4772ff;
+    --page-not-found-color-h2: #222;
+    --page-not-found-color-p: #333;
+}
+
+.dark-theme {
+    --page-not-found-color-h1: #ff6347;
+    --page-not-found-color-h2: #f1f1f1;
+    --page-not-found-color-p: #e1e1e1;
+}
+
+.page-not-found-container {
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.page-not-found-container h1 {
+    font-size: 6rem;
+    color: var(--page-not-found-color-h1);
+}
+
+.page-not-found-container h2 {
+    font-size: 2rem;
+    color: var(--page-not-found-color-h2); 
+}
+
+.page-not-found-container p {
+    font-size: 1.2rem;
+    color: var(--page-not-found-color-p); 
+}
