@@ -1,0 +1,188 @@
+:root {
+    --category-menu-background-color: #fff;
+    --category-menu-color: #111;
+    --search-business: #1111116d;
+    --active-search-business:rgba(0, 0, 45, 0.772);
+    --active-category: rgb(6, 6, 210);
+    --card-box-shadow: 0 3px 10px rgba(17, 17, 17, 0.139);
+    --card-box-shadow-hover: 0 4px 20px #11111155;
+    --business-pagination: blue !important;
+    --business-pagination-border: rgb(20, 69, 228) !important;
+}
+
+.dark-theme {
+    --category-menu-background-color: #111f;
+    --category-menu-color: #fff;
+    --search-business: rgba(255, 255, 255, 0.612);
+    --active-search-business:#f6f5f5d0;
+    --active-category: rgb(249, 37, 22);
+    --card-box-shadow: 0 3px 10px #edecec24;
+    --card-box-shadow-hover: 0 5px 16px #f1efef4d;
+    --business-pagination: red !important;
+    --business-pagination-border: rgb(228, 86, 20) !important;
+}
+
+.loader {
+    margin: 50px auto !important;
+}
+
+.search-business {
+    border: 1px solid var(--search-business);
+    width: 430px;
+    height: 38px;
+    border-radius: 5px;
+    margin: 10px auto;
+
+    position: relative;
+}
+
+.search-active {
+    border: 2px solid var(--active-search-business) !important;
+    transition: all ease-in 0.25s;
+}
+
+.search-business-input {
+    width: 90%;
+    border: 0;
+    outline: 0;
+    padding-left: 10px;
+
+    background-color: var(--category-menu-background-color);
+    color: var(--category-menu-color);
+}
+
+.search-icon {
+    width: 10%;
+    height: 90%;
+    opacity: 0.7;
+}
+
+.filter-form-select {
+    background-color: var(--category-menu-background-color) !important;
+    color: var(--category-menu-color) !important;
+    border: 1px solid var(--search-business) !important;
+    margin: 30px auto;
+    width: 40% !important;
+}
+
+.category-menu {
+    background-color: var(--category-menu-background-color);
+    border: 1px solid #1b1b1b20;
+}
+
+.category-name-on-menu {
+    width: 20%;
+    cursor: pointer;
+}
+
+.active-category {
+    color: var(--active-category) !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+}
+
+.select-category {
+    background-color: var(--category-menu-background-color) !important;
+    color: var(--category-menu-color) !important;
+    width: 80px !important;
+    padding: 0px 30px 0px 6px !important;
+}
+
+.business-card {
+    width: 330px !important;
+    background-color: var(--category-menu-background-color) !important;
+    color: var(--category-menu-color) !important;
+    border-radius: 10px 10px 0 0 !important;
+    box-shadow: var(--card-box-shadow);
+
+    cursor: pointer;
+}
+
+.business-card:hover {
+    box-shadow: var(--card-box-shadow-hover) !important;
+
+    transition: all ease 0.2s;
+}
+
+.business-card-image {
+    height: 200px;
+    border-radius: 10px 10px 0 0;
+}
+
+.business-pagination {
+    display: flex;
+    justify-content: center !important;
+    margin-top: 50px !important;
+}
+
+.business-pagination .page-item a {
+    background-color: transparent !important;
+    color: var(--business-pagination-border);
+    padding: 7px 15px;
+    font-weight: 500 !important;
+    margin: 0 15px;
+    border: 1px solid var(--business-pagination-border);
+}
+
+.business-pagination .active span{ 
+    background-color: var(--business-pagination) !important;
+    margin: 0 15px;
+    padding: 7px 15px;
+    border: 1px solid var(--business-pagination);
+}
+
+
+.text-truncate-2 {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+@media only screen and (max-width: 600px) {
+    .category-menu {
+        padding: 0 !important;
+    }
+
+    .search-business {
+        width: 80%;
+    }
+    
+    .filter-form-select {
+        margin: 30px auto;
+        width: 80% !important;
+    }
+    
+    .category-menu-content {
+        padding: 0px !important;
+    }
+    
+    .category-name-on-menu {
+        width: 30%;
+    }
+    
+    .select-category {
+        direction: rtl !important; 
+    }
+
+    .business-card {
+        width: 70% !important;
+    }
+}
+
+
+@media only screen and (max-width: 450px) {
+    .business-card {
+        width: 80% !important;
+    }
+    
+    .business-pagination .page-item a {
+        margin: 0 10px;
+        padding: 6px 12px;
+    }
+    
+    .business-pagination .active span{ 
+        margin: 0 10px;
+        padding: 6px 12px;
+    }
+}
