@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom"
 import { useGetBusinessByIdQuery } from "../../redux/api/businessApi";
 import { Card, Container, ListGroup, ListGroupItem, Row, Col, Form, Button } from 'react-bootstrap';
-import './businessDetails.css';
+import '../../styles/businessDetails.css';
 import { useState } from "react";
 
 export const BusinessDetails = () => {
