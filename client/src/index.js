@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './index.css';
 import { ApiProvider } from '@reduxjs/toolkit/query/react';
 import { api } from './redux/api/api'
 import { Provider } from 'react-redux';
