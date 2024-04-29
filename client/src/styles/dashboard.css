@@ -45,10 +45,12 @@
 .business-tbody tr{
     width: 10px !important;
 }
-/* 
-business-tbody tr td{
-    width: 10px !important;
-} */
+
+.business-dashboard .card-header, .category-list .card-header {
+    display: flex;
+    justify-content: start;
+}
+
 
 .business-list-table tr td, .business-list-table tr th {
     width: 10px !important;

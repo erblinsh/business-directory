@@ -7,8 +7,10 @@ import { useEffect, useState } from "react";
 
 export const Links = ({hamburgerActive, setHamburgerActive}) => {  
     const [theme, setTheme] = useState(() => localStorage.getItem('darkMode') === 'true')
-    const isUserLoggedIn = useSelector(state => state.userAuthSlice.isLoggedIn)
+    // const isLoggedIn = useSelector(state => state.userAuthSlice.isLoggedIn)
 
+    const { isLoggedIn, role }= useSelector(state => state.userAuthSlice)
+    
     const dispatch = useDispatch();
 
     const handleDark = () => {
@@ -26,7 +28,8 @@ export const Links = ({hamburgerActive, setHamburgerActive}) => {
     const links = [
         {path: "/", name: "Home", },
         {path: "/business", name: "Business"},
-        {path: `${isUserLoggedIn ? "/logout" : "/login"}`, name: `${isUserLoggedIn ? "Log out" : "Log in"}`},
+        {path: `${isLoggedIn ? "/logout" : "/login"}`, name: `${isLoggedIn ? "Log out" : "Log in"}`},
+        role.toLowerCase() === "admin" && {path: "/admin", name: "Admin"},
     ]
 
     const deactivateHamburgerByLink = () => {
