@@ -1,1 +1,1 @@
-export const baseUrl = 'http://localhost:5110/api/'
+export const baseUrl = 'https://businessdir-api.azurewebsites.net/api'

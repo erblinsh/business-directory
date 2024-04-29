@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useLoginUserMutation } from "../../redux/api/authApi";
 import { useDispatch } from "react-redux";
-import { setLoggedInUser } from "../../redux/slices/userAuthSlice";
+import { setLoggedInUser, setUserRole } from "../../redux/slices/userAuthSlice";
 import '../../styles/login.css'
 import { Link, useNavigate } from "react-router-dom";
 
@@ -30,9 +30,12 @@ export const Login = () => {
 
         response.error && setIsError(true);
 
+
         if(!response.error) {
             localStorage.setItem('token', response.data.result.token)
             dispatch(setLoggedInUser(user));
+            dispatch(setUserRole(response?.data?.result?.role));
+            
             localStorage.setItem("user", JSON.stringify(user));
             localStorage.setItem("user-role", JSON.stringify(response?.data?.result?.role));
 

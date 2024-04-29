@@ -5,7 +5,7 @@ const emptyUserState = {
   username: "",
   name: "",
   password: "",
-  role: ""
+  role: localStorage.getItem('user-role') ? JSON.parse(localStorage.getItem('user-role')) : ""
 };
 
 const userAuthSlice = createSlice({
@@ -16,6 +16,7 @@ const userAuthSlice = createSlice({
       state.isLoggedIn = true
       state.username = action.payload.username;
       state.name = action.payload.name;
+      state.role = localStorage.getItem('user-role') ? JSON.parse(localStorage.getItem('user-role')) : ""
     },
     setRegisterUser: (state, action) => {
       state.username = action.payload.username;
@@ -29,10 +30,13 @@ const userAuthSlice = createSlice({
       state.name = "";
       state.password = "";
       state.role = "";
+    },
+    setUserRole: (state, action) => {
+      state.role = action.payload;
     }
   },
 });
 
-export const { setLoggedInUser, setRegisterUser, setLogout } = userAuthSlice.actions;
+export const { setLoggedInUser, setRegisterUser, setLogout, setUserRole } = userAuthSlice.actions;
 
 export default userAuthSlice.reducer
