@@ -54,10 +54,7 @@ const UpdateBusiness = () => {
         try {
             const response = await updateBusiness({ 
                 id, 
-                data: JSON.stringify(formData), // Stringify the formData
-                headers: {
-                    'Content-Type': 'application/json'
-                }
+                updatedBusiness: formData, // Pass formData directly without JSON.stringify
             });
             console.log('Response:', response);
             if (response.data.isSuccess) {
@@ -67,6 +64,7 @@ const UpdateBusiness = () => {
             console.error('Error:', error);
         }
     };
+    
     
     
     
