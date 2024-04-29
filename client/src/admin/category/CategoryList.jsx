@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { Link } from 'react-router-dom';
 import { useGetAllCategoriesQuery, useDeleteCategoryMutation } from '../../redux/api/categoryApi';
 import '../../styles/dashboard.css';
 import Sidebar from '../Sidebar';
+import { MdNavigateNext } from "react-icons/md";
+import { GrFormPrevious } from "react-icons/gr";
 
 const CategoryList = () => {
-
-    const { data: {result: category} = {}} = useGetAllCategoriesQuery();
+    const [pageNumber, setPageNumber] = useState(1);
+    const pageSize = 10;
+    const { data: { result: category } = {} } = useGetAllCategoriesQuery({ pageNumber, pageSize });
     const [deletedCategoryId, setDeletedCategoryId] = useState(null);
 
     const [deleteCategory] = useDeleteCategoryMutation();
@@ -20,6 +23,18 @@ const CategoryList = () => {
         } catch (error) {
             console.error('Error deleting category:', error);
         }
+    };
+
+    useEffect(() => {
+        setPageNumber(1);
+    }, [deletedCategoryId]);
+
+    const handleNextPage = () => {
+        setPageNumber(pageNumber + 1);
+    };
+
+    const handlePrevPage = () => {
+        setPageNumber(pageNumber - 1);
     };
 
     const filteredCategory = category ? category.filter(item => item.id !== deletedCategoryId) : [];
@@ -65,6 +80,10 @@ const CategoryList = () => {
                                     ))}
                                 </tbody>
                             </table>
+                            <div className="pagination">
+                                <GrFormPrevious onClick={handlePrevPage} disabled={pageNumber === 1}/>
+                                <MdNavigateNext onClick={handleNextPage}/>
+                            </div>
                         </div>
                     </div>
                 </div>

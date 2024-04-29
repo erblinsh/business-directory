@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useGetAllBusinessQuery, useDeleteBusinessMutation } from "../../redux/api/businessApi";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { Link } from 'react-router-dom';
 import Sidebar from '../Sidebar';
 import '../../styles/dashboard.css';
+import { MdNavigateNext } from "react-icons/md";
+import { GrFormPrevious } from "react-icons/gr";
 
 const BusinessList = () => {
-    const { data: { result: business } = {} } = useGetAllBusinessQuery();
+    const [pageNumber, setPageNumber] = useState(1);
+    const pageSize = 10;
+    const { data: { result: business } = {} } = useGetAllBusinessQuery({ pageNumber, pageSize });
     const [deletedBusinessId, setDeletedBusinessId] = useState(null); 
 
     const [deleteBusiness] = useDeleteBusinessMutation();
@@ -20,6 +24,19 @@ const BusinessList = () => {
             console.error('Error deleting business:', error);
         }
     };
+
+    useEffect(() => {
+        setPageNumber(1);
+    }, [deletedBusinessId]);
+
+    const handleNextPage = () => {
+        setPageNumber(pageNumber + 1);
+    };
+
+    const handlePrevPage = () => {
+        setPageNumber(pageNumber - 1);
+    };
+
 
     const filteredBusiness = business ? business.filter(item => item.id !== deletedBusinessId) : [];
 
@@ -80,6 +97,10 @@ const BusinessList = () => {
                                     ))}
                                 </tbody>
                             </table>
+                            <div className="pagination">
+                                <GrFormPrevious onClick={handlePrevPage} disabled={pageNumber === 1}/>
+                                <MdNavigateNext onClick={handleNextPage}/>
+                            </div>
                         </div>
                     </div>
                 </div>
