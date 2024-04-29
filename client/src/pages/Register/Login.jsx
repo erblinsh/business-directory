@@ -54,7 +54,7 @@ export const Login = () => {
                 <input className="my-3" type="text" placeholder="Enter your username" onChange={e => setUsername(e.target.value)}/>
                 <input className="mb-4" type="password" placeholder="Enter your password" onChange={e => setPassword(e.target.value)}/>
                 {isError && <span className="my-1">Invalid username or password</span>}
-                <button className="mb-3" onClick={loginThisUser}>Click</button>
+                <button className="mb-3" onClick={loginThisUser}>Log In</button>
 
                 <Link to="/signup">Go to sign up</Link>
             </form>

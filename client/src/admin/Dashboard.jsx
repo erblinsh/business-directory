@@ -23,8 +23,8 @@ const Dashboard = () => {
     }, [businessData, categoryData]);
 
     useEffect(() => {
-        if (reviewData && reviewData.result) {
-            setReviewCount(reviewData.result.length);
+        if (reviewData) {
+            setReviewCount(reviewData.length);
         } else {
             setReviewCount(0); 
         }

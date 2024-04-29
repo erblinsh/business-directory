@@ -40,18 +40,6 @@ const Sidebar = () => {
               Reviews
             </Link>
           </li>
-          <hr width='280px'/>
-          <p className="title">USER</p>
-          <li className="nav-item">
-            <Link to="/profile" className="nav-link">
-              Profile
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/logout" className="nav-link">
-              Logout
-            </Link>
-          </li>
         </ul>
       </div>
     </div>
