@@ -54,7 +54,7 @@ const UpdateBusiness = () => {
         try {
             const response = await updateBusiness({ 
                 id, 
-                updatedBusiness: formData, // Pass formData directly without JSON.stringify
+                updatedBusiness: formData, 
             });
             console.log('Response:', response);
             if (response.data.isSuccess) {

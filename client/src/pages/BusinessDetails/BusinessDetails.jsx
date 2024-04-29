@@ -3,20 +3,40 @@ import { useGetBusinessByIdQuery } from "../../redux/api/businessApi";
 import { Card, Container, ListGroup, ListGroupItem, Row, Col, Form, Button } from 'react-bootstrap';
 import '../../styles/businessDetails.css';
 import { useState } from "react";
+import { usePostReviewMutation } from "../../redux/api/reviewApi";
 
 export const BusinessDetails = () => {
   const { id } = useParams();
 
   const { data: {result: business} = {}} = useGetBusinessByIdQuery(id);
+  const isUserLogged = JSON.parse(localStorage.getItem('user'))
+  
+  const user = JSON.parse(localStorage.getItem('user'));
+
+
+  const [createReview] =usePostReviewMutation();
 
   const [reviewText, setReviewText] = useState("");
   const [reviews, setReviews] = useState(business?.reviews || []);
 
-  const handleReviewSubmit = () => {
+  const handleReviewSubmit = async () => {
+    const reviewModel = {
+      rating: 5,
+      comment: reviewText,
+      userId: user?.id,
+      businessId: parseInt(id)
+    }
+    
     if (reviewText.trim() !== "") {
-      const newReview = { text: reviewText };
-      setReviews([...reviews, newReview]);
-      setReviewText(""); 
+      try {
+        const { data } = await createReview(reviewModel); 
+
+        if (data) {
+          setReviewText(""); 
+        }
+      } catch (error) {
+        console.error("Error submitting review:", error);
+      }
     }
   };
 
@@ -70,7 +90,7 @@ export const BusinessDetails = () => {
             </ListGroup>
          </Card>
          <br />
-         <ListGroupItem>
+         {isUserLogged && <ListGroupItem>
             <Form>
               <Form.Group controlId="reviewText">
                 <Form.Label>Write a Review:</Form.Label>
@@ -85,6 +105,7 @@ export const BusinessDetails = () => {
               <Button className="button" onClick={handleReviewSubmit}>Submit</Button>
             </Form>
           </ListGroupItem>
+          }
         </Col>
       </Row>
     </Container>

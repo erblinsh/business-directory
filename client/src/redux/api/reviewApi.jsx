@@ -1,9 +1,25 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { baseUrl } from './baseUrl';
 
+const authToken = () => {
+return localStorage.getItem('token')
+}
+
 export const reviewApi = createApi({
     reducerPath: 'reviewApi',
-    baseQuery: fetchBaseQuery({ baseUrl }),
+    baseQuery: fetchBaseQuery({ 
+    baseUrl,
+    prepareHeaders: (headers) => {
+        const token = authToken();
+        
+        if(token) {
+        headers.set('Authorization', `Bearer ${token}`)
+        }
+
+        return headers
+    }
+    }),
+
     endpoints: (builder) => ({
         getAllReviews: builder.query({
             query: () => 'review',
