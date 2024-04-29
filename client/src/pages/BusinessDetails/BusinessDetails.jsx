@@ -24,7 +24,7 @@ export const BusinessDetails = () => {
     <Container className="mt-5">
       <Row>
         <Col md={6}>
-          <Card.Img className='business-card-image' variant="top" src={business?.imageUrl} />
+          <Card.Img className='business-details-card-image' variant="top" src={business?.imageUrl} />
         </Col>
         <Col md={6}>
           <Card className='business-details-card'> 

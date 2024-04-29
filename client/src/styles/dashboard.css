@@ -31,23 +31,21 @@
 .business-table{
     margin-top: 50px;
 }
-/* .business-dashboard{
-    width: 100% !important;
-    margin: 0;
-    padding: 0;
-} */
+
 
 .data-table {
     width: 100%;
 }
 
-@media (max-width: 768px) {
-    .category-table {
-        margin-top: 20px; /* Adjust margin on smaller screens */
-    }
-}
-.dashboard-card{
+ .dashboard-card, .card-body{
     background-color: var(--table-bg-color) !important;
     color: var(--table-color) !important;
 }
+
+@media (max-width: 768px) {
+    .category-table {
+        margin-top: 20px;
+    }
+}
+
 

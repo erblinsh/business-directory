@@ -51,8 +51,8 @@ const Dashboard = () => {
                                 </Card>
                             </Col>
                             <Col xl={3} md={6} mb={4}>
-                                <Card>
-                                    <Card.Body className='dashboard-card'>
+                                <Card className='dashboard-card'>
+                                    <Card.Body>
                                         <div className="text-xs font-weight-bold text-success text-uppercase mb-1">
                                             Categories
                                         </div>
